@@ -1,5 +1,3 @@
-import 'https://raw.githubusercontent.com/john-doherty/swiped-events/master/src/swiped-events.js'
-
 var SnekC = document.getElementById("S");
 var SC = SnekC.getContext("2d");
 var HeaderC = document.getElementById("H");
