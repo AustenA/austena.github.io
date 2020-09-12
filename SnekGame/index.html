@@ -2,14 +2,12 @@
 <html>
    <link rel="shortcut icon" type="image/ico" href="../favicon.ico"/>
    <title>Austen's Snek</title>
-   <meta name="viewport" content="width=1500, initial-scale=1">
-
 <style>
     canvas {
         display: block;
         margin: auto;
         width: 40%;
-        height: 40%;
+        height: same-as-width;
     }
     #S {
         border: 1px solid #000;
@@ -24,11 +22,18 @@
     html, body {
         margin: 0;
     }
+    @media screen and (max-width: 1366px) {
+        canvas {
+            width: 80%;
+            height: same-as-width;
+        }
+        
+    }
 </style>
 
 <body id="thebody">
 
-<iframe src="../header.html" style="border: none; width: 100%; height: 75px;"></iframe>
+<iframe src="../header.html" style="border: none; width: 100%; height: 70px; margin-top: 10px"></iframe>
 
 <canvas id="H" width="1500" height="100"></canvas>
 <canvas id="S" width="1500" height="1500"></canvas>

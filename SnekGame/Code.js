@@ -4,7 +4,6 @@ var HeaderC = document.getElementById("H");
 var HC = HeaderC.getContext("2d");
 HC.font = "50px Arial";
 
-
 //Credit to kirupa for writing this fire swipe detection
 var input = document.getElementById('thebody');
 input.addEventListener("touchstart", startTouch, false);
@@ -56,10 +55,7 @@ function moveTouch(e) {
   initialY = null;
 };
 
-var siteWidth = 1280;
-var scale = screen.width /siteWidth
 
-document.querySelector('meta[name="viewport"]').setAttribute('content', 'width='+siteWidth+', initial-scale='+scale+'');
 function resetVariables() {
     score = 0;
     running = true;
