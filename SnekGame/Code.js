@@ -2,6 +2,7 @@ var SnekC = document.getElementById("S");
 var SC = SnekC.getContext("2d");
 var HeaderC = document.getElementById("H");
 var HC = HeaderC.getContext("2d");
+var clickedVar = false;
 HC.font = "50px Arial";
 
 //Credit to kirupa for writing this fire swipe detection
@@ -58,6 +59,7 @@ function moveTouch(e) {
 
 function resetVariables() {
     score = 0;
+    clickedVar = false;
     running = true;
     direction = "down"
     speed = 7
@@ -77,7 +79,9 @@ function resetVariables() {
     GenerateApple();
 }
 
-
+SnekC.addEventListener("mousedown", function() {
+    clickedVar = true;
+  });
 
 function HeaderUpdate() {
     HC.fillStyle = "#46567d";
@@ -184,6 +188,9 @@ function GG() {
     if (keyss[0] === 13) {
         resetVariables();
     }
+    if (clickedVar) {
+        resetVariables();
+    }
     if (keyss[0]) keyss.shift();
 }
 
@@ -193,6 +200,7 @@ function TheSnek() {
         AppleCheck();
         HeaderUpdate();
         draw();
+        clickedVar = false;
         if (checkDed()) running = false;
     } else {
         GG();
