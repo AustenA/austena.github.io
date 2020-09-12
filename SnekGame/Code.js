@@ -4,6 +4,62 @@ var HeaderC = document.getElementById("H");
 var HC = HeaderC.getContext("2d");
 HC.font = "50px Arial";
 
+var input = document.getElementById('thebody');
+input.addEventListener("touchstart", startTouch, false);
+input.addEventListener("touchmove", moveTouch, false);
+ 
+// Swipe Up / Down / Left / Right
+var initialX = null;
+var initialY = null;
+ 
+function startTouch(e) {
+  initialX = e.touches[0].clientX;
+  initialY = e.touches[0].clientY;
+};
+ 
+function moveTouch(e) {
+  if (initialX === null) {
+    return;
+  }
+ 
+  if (initialY === null) {
+    return;
+  }
+ 
+  var currentX = e.touches[0].clientX;
+  var currentY = e.touches[0].clientY;
+ 
+  var diffX = initialX - currentX;
+  var diffY = initialY - currentY;
+ 
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    // sliding horizontally
+    if (diffX > 0) {
+      // swiped left
+      console.log("swiped left");
+      direction = "left";
+    } else {
+      // swiped right
+      console.log("swiped right");
+      direction = "right";
+    }  
+  } else {
+    // sliding vertically
+    if (diffY > 0) {
+      // swiped up
+      console.log("swiped up");
+      direction = "up";
+    } else {
+      // swiped down
+      console.log("swiped down");
+      direction = "down";
+    }  
+  } 
+  initialX = null;
+  initialY = null;
+};
+
+
 function resetVariables() {
     score = 0;
     running = true;
@@ -25,6 +81,8 @@ function resetVariables() {
     GenerateApple();
 }
 
+
+
 function HeaderUpdate() {
     HC.fillStyle = "#46567d";
     HC.fillRect(0, 0, HeaderC.width, HeaderC.height);
@@ -33,13 +91,17 @@ function HeaderUpdate() {
 }
 
 
+//Get Keys
 document.onkeydown = function (evt) {
     evt = evt || window.event;
     if ((keyss.length < 2)) {
         keyss.push(evt.keyCode);
     }
 };
+//End of check keys
 
+
+//These is what tells the code if you died.
 function checkDed() {
     for (i = 1; i < snook.coords.length; i++) {
         if ((snook.coords[0].x === snook.coords[i].x) && (snook.coords[0].y === snook.coords[i].y)) {
@@ -50,6 +112,8 @@ function checkDed() {
         return true;
     }
 }
+//End
+
 
 function GenerateApple() {
     apple = {
