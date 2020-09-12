@@ -4,14 +4,14 @@ var HeaderC = document.getElementById("H");
 var HC = HeaderC.getContext("2d");
 HC.font = "50px Arial";
 
+
+//Credit to kirupa for writing this fire swipe detection
 var input = document.getElementById('thebody');
 input.addEventListener("touchstart", startTouch, false);
 input.addEventListener("touchmove", moveTouch, false);
- 
 // Swipe Up / Down / Left / Right
 var initialX = null;
 var initialY = null;
- 
 function startTouch(e) {
   initialX = e.touches[0].clientX;
   initialY = e.touches[0].clientY;
@@ -25,13 +25,10 @@ function moveTouch(e) {
   if (initialY === null) {
     return;
   }
- 
   var currentX = e.touches[0].clientX;
   var currentY = e.touches[0].clientY;
- 
   var diffX = initialX - currentX;
   var diffY = initialY - currentY;
- 
   if (Math.abs(diffX) > Math.abs(diffY)) {
     // sliding horizontally
     if (diffX > 0) {
@@ -59,7 +56,10 @@ function moveTouch(e) {
   initialY = null;
 };
 
+var siteWidth = 1280;
+var scale = screen.width /siteWidth
 
+document.querySelector('meta[name="viewport"]').setAttribute('content', 'width='+siteWidth+', initial-scale='+scale+'');
 function resetVariables() {
     score = 0;
     running = true;
