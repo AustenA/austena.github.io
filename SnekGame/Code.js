@@ -13,51 +13,51 @@ input.addEventListener("touchmove", moveTouch, false);
 var initialX = null;
 var initialY = null;
 function startTouch(e) {
-  initialX = e.touches[0].clientX;
-  initialY = e.touches[0].clientY;
+    initialX = e.touches[0].clientX;
+    initialY = e.touches[0].clientY;
 };
- 
+
 function moveTouch(e) {
-  if (initialX === null) {
-    return;
-  }
- 
-  if (initialY === null) {
-    return;
-  }
-  var currentX = e.touches[0].clientX;
-  var currentY = e.touches[0].clientY;
-  var diffX = initialX - currentX;
-  var diffY = initialY - currentY;
-  if (Math.abs(diffX) > Math.abs(diffY)) {
-    // sliding horizontally
-    if (diffX > 0) {
-      // swiped left
-      keyss.push(65);
+    if (initialX === null) {
+        return;
+    }
+
+    if (initialY === null) {
+        return;
+    }
+    var currentX = e.touches[0].clientX;
+    var currentY = e.touches[0].clientY;
+    var diffX = initialX - currentX;
+    var diffY = initialY - currentY;
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+        // sliding horizontally
+        if (diffX > 0) {
+            // swiped left
+            keyss.push(65);
+        } else {
+            // swiped right
+
+            keyss.push(68);
+        }
     } else {
-      // swiped right
-      
-      keyss.push(68);
-    }  
-  } else {
-    // sliding vertically
-    if (diffY > 0) {
-      // swiped up
-      keyss.push(87);
-    } else {
-      // swiped down
-      keyss.push(83);
-    }  
-  } 
-  initialX = null;
-  initialY = null;
+        // sliding vertically
+        if (diffY > 0) {
+            // swiped up
+            keyss.push(87);
+        } else {
+            // swiped down
+            keyss.push(83);
+        }
+    }
+    initialX = null;
+    initialY = null;
 };
 
 
 function resetVariables() {
     score = 0;
     clickedVar = false;
-    running = true;
+    running = "true";
     direction = "down"
     speed = 7
     keyss = []
@@ -76,9 +76,9 @@ function resetVariables() {
     GenerateApple();
 }
 
-SnekC.addEventListener("mousedown", function() {
+SnekC.addEventListener("click", function () {
     clickedVar = true;
-  });
+});
 
 function HeaderUpdate() {
     HC.fillStyle = "#46567d";
@@ -164,6 +164,7 @@ function moveSnook() {
     }
 }
 
+
 function draw() {
     SC.fillStyle = "#567d46";
     SC.fillRect(0, 0, SnekC.width, SnekC.height);
@@ -192,13 +193,21 @@ function GG() {
 }
 
 function TheSnek() {
-    if (running) {
+    if (running === "true") {
         moveSnook();
         AppleCheck();
         HeaderUpdate();
         draw();
-        clickedVar = false;
-        if (checkDed()) running = false;
+        if (clickedVar) {
+            running = "paused";
+            clickedVar = false;
+        }
+        if (checkDed()) running = "false";
+    } else if (running === "paused") {
+        if (clickedVar) {
+            running = "true";
+            clickedVar = false;
+        }
     } else {
         GG();
     }
