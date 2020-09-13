@@ -33,23 +33,19 @@ function moveTouch(e) {
     // sliding horizontally
     if (diffX > 0) {
       // swiped left
-      console.log("swiped left");
-      direction = "left";
+      keyss.push(68);
     } else {
       // swiped right
-      console.log("swiped right");
-      direction = "right";
+      keyss.push(65);
     }  
   } else {
     // sliding vertically
     if (diffY > 0) {
       // swiped up
-      console.log("swiped up");
-      direction = "up";
+      keyss.push(87);
     } else {
       // swiped down
-      console.log("swiped down");
-      direction = "down";
+      keyss.push(83);
     }  
   } 
   initialX = null;
