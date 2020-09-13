@@ -33,10 +33,11 @@ function moveTouch(e) {
     // sliding horizontally
     if (diffX > 0) {
       // swiped left
-      keyss.push(68);
+      keyss.push(65);
     } else {
       // swiped right
-      keyss.push(65);
+      
+      keyss.push(68);
     }  
   } else {
     // sliding vertically
