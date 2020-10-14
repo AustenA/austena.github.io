@@ -124,12 +124,14 @@ function GenerateApple() {
 }
 
 function AppleCheck() {
-    if ((apple.coords[0].x === snook.coords[0].x) && (apple.coords[0].y === snook.coords[0].y)) {
-        GenerateApple();
-        snook.coords.push({
-            x: snook.buffer.x, y: snook.buffer.y
-        })
-        score++;
+    for (i = 0; i < apple.coords.length; i++) {
+        if ((apple.coords[i].x === snook.coords[i].x) && (apple.coords[i].y === snook.coords[i].y)) {
+            GenerateApple();
+            snook.coords.push({
+                x: snook.buffer.x, y: snook.buffer.y
+            })
+            score++;
+        }
     }
 }
 
