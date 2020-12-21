@@ -11,3 +11,17 @@ html {
     color: white;
     text-decoration: none;
   }
+
+  div {
+    margin-left: 5%;
+
+  }
+
+  h1 {
+    color: #FFF;
+
+  }
+
+  p {
+    padding-bottom: 0rem;
+  }
