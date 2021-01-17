@@ -1,7 +1,3 @@
-function linkTo(where){
-	window.top.location.href = where;
-}
-
 /*
 Testing
 let batteryPromise = navigator.getBattery();
