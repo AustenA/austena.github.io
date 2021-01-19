@@ -32,7 +32,9 @@
     a:hover {
         color: white;
         cursor: pointer;
-        transform: scale(1.1);
+    }
+
+    .hvr-grow {
         vertical-align: middle;
         transform: translateZ(0);
         display: inline-block;
@@ -40,14 +42,19 @@
         transition-property: transform;
     }
 
+    .hvr-grow:hover,
+    .hvr-grow:focus,
+    .hvr-grow:active {
+        transform: scale(1.1);
+    }
 </style>
 
 
 <body>
-    <a href="/" target="_top">Home</a>
-    <a href="King/" target="_top">About Me</a>
-    <a href="https://github.com/AustenA" target="_top">My GitHub</a>
-    <a href="SnekGame/" target="_top">Snek Game</a>
+    <a href="/" target="_top" class="hvr-grow">Home</a>
+    <a href="King/" target="_top" class="hvr-grow">About Me</a>
+    <a href="https://github.com/AustenA" class="hvr-grow" target="_top">My GitHub</a>
+    <a href="SnekGame/" class="hvr-grow" target="_top">Snek Game</a>
 </body>
 
 </html>
