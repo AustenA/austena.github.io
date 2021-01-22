@@ -47,3 +47,15 @@ a:hover {
 .hvr-grow:active {
     transform: scale(1.03);
 }
+
+#Header {
+  font-family: 'EB Garamond', serif;
+  background-color: #223;
+  text-shadow: -.75px 0 rgb(82, 82, 82), 0 .75px rgb(82, 82, 82), .75px 0 rgb(82, 82, 82), 0 -.75px rgb(82, 82, 82);
+  height: 50px;
+  text-align: center;
+  margin-top: 1REM;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
