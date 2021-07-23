@@ -26,7 +26,10 @@ html {
     padding-bottom: 0rem;
   }
 
-  a:visited {
+a {
+  color: white;
+}
+a:visited {
     color: white;
     text-decoration: none;
 }
